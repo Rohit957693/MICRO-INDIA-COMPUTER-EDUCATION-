@@ -241,9 +241,80 @@
 
     </div>
 
+</sec<section class="section admission" id="admission">
+
+    <h2>📝 Admission Form</h2>
+
+    <p style="text-align:center;">
+        नीचे जानकारी भरें और WhatsApp पर Admission भेजें।
+    </p>
+
+    <form onsubmit="sendAdmission(event)" style="max-width:600px; margin:auto;">
+
+        <label>👤 Student Name</label>
+        <input id="studentName" type="text" required
+               placeholder="अपना नाम लिखें"
+               style="width:100%; padding:12px; margin:8px 0 15px;">
+
+        <label>📱 Mobile Number</label>
+        <input id="studentMobile" type="tel" required
+               placeholder="मोबाइल नंबर"
+               style="width:100%; padding:12px; margin:8px 0 15px;">
+
+        <label>📚 Course</label>
+        <select id="course" required
+                style="width:100%; padding:12px; margin:8px 0 15px;">
+
+            <option value="">Course चुनें</option>
+            <option>ADCA</option>
+            <option>DCA</option>
+            <option>TALLY</option>
+            <option>TYPING</option>
+            <option>ETC.</option>
+
+        </select>
+
+        <label>🏠 Address</label>
+        <textarea id="address" required
+                  placeholder="अपना पता लिखें"
+                  style="width:100%; padding:12px; margin:8px 0 15px; height:100px;"></textarea>
+
+        <button type="submit"
+                style="background:#168a3b; color:white; border:0;
+                       padding:14px 22px; border-radius:7px;
+                       font-weight:bold; font-size:16px; width:100%;">
+            💬 WhatsApp पर Admission भेजें
+        </button>
+
+    </form>
+
 </section>
 
-<section class="section contact" id="contact">
+<script>
+function sendAdmission(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("studentName").value;
+    const mobile = document.getElementById("studentMobile").value;
+    const course = document.getElementById("course").value;
+    const address = document.getElementById("address").value;
+
+    const message =
+        "📝 *New Admission Enquiry*%0A%0A" +
+        "👤 Student Name: " + encodeURIComponent(name) + "%0A" +
+        "📱 Mobile: " + encodeURIComponent(mobile) + "%0A" +
+        "📚 Course: " + encodeURIComponent(course) + "%0A" +
+        "🏠 Address: " + encodeURIComponent(address);
+
+    const whatsappNumber = "919304788345";
+
+    window.open(
+        "https://wa.me/" + whatsappNumber + "?text=" + message,
+        "_blank"
+    );
+}
+</script>
 
     <h2>Contact Us</h2>
 
