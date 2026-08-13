@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Panel - Micro India Computer Education</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f7fa;
+}
+
+.box{
+    max-width:420px;
+    margin:80px auto;
+    background:white;
+    padding:30px 20px;
+    border-radius:12px;
+    box-shadow:0 3px 15px #ccc;
+}
+
+h1{
+    text-align:center;
+    color:#123b70;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin:8px 0 15px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    background:#123b70;
+    color:white;
+    border:0;
+    border-radius:7px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+#message{
+    text-align:center;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🔐 Admin Login</h1>
+
+<input
+    type="email"
+    id="email"
+    placeholder="Admin Email"
+>
+
+<input
+    type="password"
+    id="password"
+    placeholder="Password"
+>
+
+<button onclick="login()">
+    Login
+</button>
+
+<p id="message"></p>
+
+</div>
+
+<script>
+
+https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
+sb_publishable_q7AqIizFC2lJU_NFlZ9DHg_zwuhE1U8
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+async function login(){
+
+    const email =
+        document.getElementById("email").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const message =
+        document.getElementById("message");
+
+    message.innerText = "Login हो रहा है...";
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if(error){
+
+        message.innerText =
+            "❌ Email या Password गलत है।";
+
+        return;
+    }
+
+    message.innerText =
+        "✅ Login सफल!";
+
+    setTimeout(function(){
+
+        window.location.href = "admin-dashboard.html";
+
+    },1000);
+}
+
+</script>
+
+</body>
+  </html>
