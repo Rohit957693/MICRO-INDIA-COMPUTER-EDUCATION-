@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Micro India Computer Education</title>
+
+    <script src="config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .box {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            color: #123b70;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 10px;
+            border: 0;
+            border-radius: 7px;
+            background: #123b70;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .logout {
+            background: #c62828;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>⚙️ Admin Dashboard</h1>
+
+    <button onclick="changePassword()">
+        🔐 Change Password
+    </button>
+
+    <button class="logout" onclick="logout()">
+        🚪 Logout
+    </button>
+
+    <p id="message"></p>
+
+</div>
+
+<script>
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+async function changePassword() {
+
+    const newPassword = prompt("नया Password डालें:");
+
+    if (!newPassword) {
+        return;
+    }
+
+    if (newPassword.length < 6) {
+        alert("Password कम से कम 6 characters का होना चाहिए।");
+        return;
+    }
+
+    const { error } =
+        await supabaseClient.auth.updateUser({
+            password: newPassword
+        });
+
+    if (error) {
+
+        document.getElementById("message").innerText =
+            "❌ Password बदल नहीं पाया।";
+
+        return;
+    }
+
+    document.getElementById("message").innerText =
+        "✅ Password सफलतापूर्वक बदल गया।";
+}
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href = "admin.html";
+}
+
+</script>
+
+</body>
+</html>
